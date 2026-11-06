@@ -1,0 +1,20 @@
+{
+  "KPlugin": {
+    "Name": "ZoneSets",
+    "Description": "Cycle configurable grid zones for the active window via keyboard shortcuts, inspired by gTile resize presets",
+    "Icon": "preferences-system-windows",
+    "Authors": [
+      {
+        "Name": "ZoneSets",
+        "Email": "zonesets@example.com"
+      }
+    ],
+    "Id": "zonesets",
+    "Version": "1.0.0",
+    "License": "GPL-3.0-or-later",
+    "Website": ""
+  },
+  "X-Plasma-API": "javascript",
+  "X-Plasma-MainScript": "code/main.js",
+  "KPackageStructure": "KWin/Script"
+}
