@@ -129,22 +129,29 @@ function activateBind(bindName) {
 }
 
 function init() {
+    print("ZoneSets: Initializing...");
     const config = loadConfig();
-    if (!config || !config.binds) {
-        print("ZoneSets: No valid config, no shortcuts registered");
+    if (!config || !config.binds || config.binds.length === 0) {
+        print("ZoneSets: No valid config or binds found, no shortcuts registered");
         return;
     }
 
-    config.binds.forEach(bind => {
+    print("ZoneSets: Found " + config.binds.length + " binds");
+
+    config.binds.forEach((bind, idx) => {
         if (!bind.name) return;
         const shortcutName = "ZoneSets: " + bind.name;
         const description = "Cycle zones for " + bind.name;
-        // Empty default sequence so user assigns in System Settings
-        registerShortcut(shortcutName, description, "", function() {
+        // Provide a default sequence so it reliably appears in the UI
+        // User can reassign freely. Uses Ctrl+Alt + Numpad(1-based)
+        const defaultKey = "Ctrl+Alt+Num+" + (idx + 1);
+        const success = registerShortcut(shortcutName, description, defaultKey, function() {
             activateBind(bind.name);
         });
-        print("ZoneSets: Registered shortcut for " + bind.name);
+        print("ZoneSets: Registered '" + shortcutName + "' with default " + defaultKey + " (success=" + success + ")");
     });
+
+    print("ZoneSets: Init complete. Look for 'ZoneSets:' under Shortcuts > KWin");
 }
 
 init();
